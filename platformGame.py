@@ -11,11 +11,16 @@ on_ground = False
 # Platforms
 platforms = [
     Rect((0, 470), (800, 30)),
-    Rect((200, 380), (150, 20))
+    Rect((200, 380), (150, 20)),
+    Rect((450, 300), (150, 20)),
+    Rect((650, 220), (100, 20))
 ]
 
 # Collectibles
-coins = []
+coins = [
+    Rect((250, 340), (20, 20)),
+    Rect((500, 260), (20, 20)),
+    Rect((690, 180), (20, 20))]
 score = 0
 
 # Hazards and goal
@@ -25,17 +30,17 @@ game_won = False
 
 def draw():
     screen.clear()
-    screen.draw.filled_rect(player, "blue")
+    screen.draw.filled_rect(player, "aqua")
 
     for platform in platforms:
-        screen.draw.filled_rect(platform, "green")
+        screen.draw.filled_rect(platform, "saddlebrown")
 
     for coin in coins:
         screen.draw.filled_rect(coin, "yellow")
     
     screen.draw.text(f"Score: {score}", (10, 10), fontsize=30, color="white")
     screen.draw.filled_rect(lava, "red")
-    screen.draw.filled_rect(goal, "purple")
+    screen.draw.filled_rect(goal, "indigo")
     if game_won:
         screen.draw.text("You Win!", center=(400, 250), fontsize=60, color="yellow")
 
