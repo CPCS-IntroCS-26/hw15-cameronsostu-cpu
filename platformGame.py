@@ -1,6 +1,6 @@
 import pgzrun
 WIDTH = 800
-HEIGHT = 500
+HEIGHT = 1000
 
 # Player variables
 player = Rect((100, 400), (40, 40))
@@ -10,10 +10,17 @@ on_ground = False
 
 # Platforms
 platforms = [
-    Rect((0, 470), (800, 30)),
+    Rect((0, 470), (750, 30)), # the first floor
+    Rect((0,970), (800, 30)),
     Rect((200, 380), (150, 20)),
     Rect((450, 300), (150, 20)),
-    Rect((650, 220), (100, 20))
+    Rect((650, 220), (100, 20)),
+    Rect((0, 250), (120, 20)),
+    Rect((400, 100), (120, 20)),
+    Rect((100, 100), (120, 20)),
+    Rect((0,50), (120, 20)),
+    # bottom floor
+    Rect((300, 820), (300, 20) )
 ]
 
 # Collectibles
@@ -24,8 +31,12 @@ coins = [
 score = 0
 
 # Hazards and goal
-lava = Rect((350, 450), (100, 20))
-goal = Rect((730, 420), (40, 50))
+lava = [
+    Rect((350, 450), (100, 20)),
+    Rect((450,450), (20, 100))
+]
+
+goal = Rect((0, 900), (40, 50 ))
 game_won = False
 
 def draw():
