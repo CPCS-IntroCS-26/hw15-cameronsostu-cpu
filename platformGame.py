@@ -20,7 +20,11 @@ platforms = [
     Rect((100, 100), (120, 20)),
     Rect((0,50), (120, 20)),
     # bottom floor
-    Rect((300, 820), (300, 20) )
+    Rect((300, 820), (300, 20) ),
+    Rect((700, 850), (80, 20)),
+    Rect((450, 740), (50, 20)),
+    Rect((430, 640), (90, 20))
+
 ]
 
 # Collectibles
@@ -29,15 +33,20 @@ coins = [
     Rect((500, 260), (20, 20)),
     Rect((690, 180), (20, 20))]
 score = 0
+lives = 3
 
 # Hazards and goal
-lava = [
+lavas =  [
+    
     Rect((350, 450), (100, 20)),
-    Rect((450,450), (20, 100))
+    Rect((600,820), (20, 150)),
+    Rect((450,450), (50, 200)),
+    Rect((450, 750), (50,70))
 ]
 
-goal = Rect((0, 900), (40, 50 ))
+goal = Rect((0, 920), (40, 50 ))
 game_won = False
+game_over = False
 
 def draw():
     screen.clear()
@@ -50,13 +59,16 @@ def draw():
         screen.draw.filled_rect(coin, "yellow")
     
     screen.draw.text(f"Score: {score}", (10, 10), fontsize=30, color="white")
-    screen.draw.filled_rect(lava, "red")
+    screen.draw.text(f"Lives: {lives}", (100, 10), fontsize=30, color="white")
+    for lava in lavas:
+        screen.draw.filled_rect(lava, "red")
     screen.draw.filled_rect(goal, "indigo")
     if game_won:
         screen.draw.text("You Win!", center=(400, 250), fontsize=60, color="yellow")
-
+    if game_over:
+        screen.draw.text("Game Over!", center=(400, 250), fontsize=60, color="red")
 def update():
-    global velocity_y, on_ground, score, game_won
+    global velocity_y, on_ground, score, game_won, lives, game_over
     velocity_y += gravity
     player.y += velocity_y
 
@@ -91,12 +103,14 @@ def update():
         if player.colliderect(coin):
             coins.remove(coin)
             score += 1
-
-    if player.colliderect(lava):
-        player.x = 100
-        player.y = 400
-        velocity_y = 0
-
+    for lava in lavas[:]:
+        if player.colliderect(lava):
+            player.x = 100
+            player.y = 400
+            velocity_y = 0
+            lives -= 1
+    if lives == 0:
+        game_over = True
     if player.colliderect(goal):
         game_won = True
 pgzrun.go()
